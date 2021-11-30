@@ -2,7 +2,6 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../../pages/Home";
 import Login from "../../pages/Login";
 import Registration from "../../pages/Registration";
-import Profile from "../../pages/Profile";
 import NotFound from "../../pages/NotFound";
 import useAuth from "../../hooks/useAuth";
 import PrivateRoute from "../components/PrivateRoute";
@@ -31,11 +30,6 @@ function Routes() {
       <Route exact path="/">
         <Home />
       </Route>
-
-      <PrivateRoute path="/videos">
-        <Profile />
-      </PrivateRoute>
-
 
       <PrivateRoute path="/requests">
         <Requests />

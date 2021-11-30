@@ -53,9 +53,9 @@ function App() {
           {auth.isLoaded &&
             (auth.user ? (
               <>
-                <Button color="inherit" component={Link} to="/videos">
+                <div>
                   {auth.user.data.attributes.email}
-                </Button>
+                </div>
                 <Button color="inherit" onClick={onLogOut}>
                   Log out
                 </Button>
