@@ -26,13 +26,11 @@ function AuthProvider(props) {
 
   const loadData = useCallback(async () => {
     const tokenData = Cookies.get("auth-token");
-    console.log("token data", tokenData)
     setTokenData(tokenData);
 
     try {
       if (tokenData) {
         const { data } = await api.auth.getProfile();
-        console.log("user data", data)
         setUser(data);
       }
     } catch {

@@ -62,7 +62,6 @@ const Form = function (props) {
   });
 
   const onSubmit = async (data) => {
-    console.log("submit", data)
     const ok = validateData(data)
     if(!ok) {
       return
@@ -70,7 +69,6 @@ const Form = function (props) {
 
     let formData = new FormData()
     let reqData = combineData(data)
-    console.log(reqData)
     let jsonReqData = JSON.stringify(reqData)
 
     formData.append("video", data.video[0])
@@ -79,7 +77,6 @@ const Form = function (props) {
     try {
       setIsLoading(true)
       let response = await api.request.create(formData)
-      console.log(response)
       history.push("/requests")
     } catch (e) {
       switch (e.response.status) {

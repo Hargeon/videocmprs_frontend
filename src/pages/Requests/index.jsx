@@ -9,7 +9,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons/faPlusCircle";
 import { faClock } from "@fortawesome/free-solid-svg-icons/faClock";
-import requests from "../../services/api/endpoints/requests";
 import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -77,8 +76,6 @@ const Index = function (props) {
 
       return request
     })
-
-    console.log(requests)
 
     auth.setRequestData(requests)
   }, [page])

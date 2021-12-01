@@ -1,8 +1,12 @@
-import { makeStyles, Container, Typography } from "@material-ui/core";
+import { Container } from "@material-ui/core";
+import {Carousel} from "react-responsive-carousel";
+import {useEffect} from "react";
+import useAuth from "../../hooks/useAuth";
+import {useHistory} from "react-router-dom";
+
 import Man from "./man.jpg"
 import Girls from "./girls.jpg"
 import Dog from "./dog.jpg"
-import {Carousel} from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import "./style.css"
 
@@ -13,6 +17,15 @@ const imagesWithText = [
 ]
 
 function Home() {
+  const auth = useAuth();
+  const history = useHistory();
+
+  useEffect(() => {
+    if(auth.user) {
+      history.push("/requests");
+    }
+  }, [auth.user])
+
   return (
     <div>
       <Carousel
