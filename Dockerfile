@@ -3,7 +3,6 @@ FROM node:12.22-alpine
 WORKDIR /app
 
 ENV PATH /app/node_modules/.bin:$PATH
-ENV REACT_APP_BACKEND_HOST 'http://localhost:3001/api'
 
 COPY package.json ./
 COPY package-lock.json ./
