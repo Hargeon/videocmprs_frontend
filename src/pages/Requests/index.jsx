@@ -9,7 +9,26 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons/faPlusCircle";
 import { faClock } from "@fortawesome/free-solid-svg-icons/faClock";
+import { faFileDownload } from "@fortawesome/free-solid-svg-icons/faFileDownload";
 import {Link} from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
+
+let client = axios.create()
+client.interceptors.request.use(
+  (config) => {
+    config.headers.accept = "application/vnd.api+json"
+
+    const authToken = Cookies.get("auth-token");
+
+    if (authToken) {
+      config.headers.authorization = `Bearer ${authToken}`;
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +62,12 @@ const useStyles = makeStyles((theme) => ({
   },
   statusIcon: {
     marginLeft: "5px"
+  },
+
+  downloadIcon: {
+    display: "inline-block",
+    marginLeft: "10px",
+    cursor: "pointer"
   }
 }));
 
@@ -257,6 +282,29 @@ const Index = function (props) {
     )
   }
 
+  const downloadVideo = async (url) => {
+    // window.open(url, '_blank').focus();
+    try {
+      const { data } = await client.get(url)
+      window.open(data.data.id, '_blank').focus();
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const displayDownloadIcon = (video) => {
+    console.log(video)
+    if(video && video.links && video.links.download) {
+      return (
+        <div className={classes.downloadIcon} onClick={() => downloadVideo(video.links.download)}>
+          <FontAwesomeIcon icon={faFileDownload} color={"#3f51b5"} />
+        </div>
+      )
+    } else {
+      return <></>
+    }
+  }
+
     return (
       <Container maxWidth="xl" className={classes.root}>
         <Container maxWidth="xs">
@@ -286,11 +334,11 @@ const Index = function (props) {
                       <Grid item xs={12}>
                         <Typography gutterBottom variant="h5" component="div">
                           Original
+                          {displayDownloadIcon(request.originVideo)}
                         </Typography>
 
                         {request.originVideo ? (
                           <>
-
                             {displayVideo(request, request.originVideo)}
                           </>
                         ) : request.attributes.status === "failed" ? (
@@ -307,7 +355,7 @@ const Index = function (props) {
 
                       <Grid item xs={12}>
                         <Typography gutterBottom variant="h5" component="div">
-                          Converted
+                          Converted {displayDownloadIcon(request.convertedVideo)}
                         </Typography>
 
                         {request.convertedVideo ? (
