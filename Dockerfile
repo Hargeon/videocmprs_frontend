@@ -3,7 +3,7 @@ FROM node:12.22-alpine
 WORKDIR /app
 
 ENV PATH /app/node_modules/.bin:$PATH
-ENV REACT_APP_BACKEND_HOST 'http://localhost:3001/api'
+ENV REACT_APP_BACKEND_HOST 'http://ec2-18-222-207-147.us-east-2.compute.amazonaws.com/api'
 
 COPY package.json ./
 COPY package-lock.json ./
