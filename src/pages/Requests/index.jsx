@@ -148,6 +148,14 @@ const Index = function (props) {
         ) : (
           <></>
         )}
+
+        {resource.attributes.status == "failed" ? (
+          <div>
+            { resource.attributes.details }
+          </div>
+        ) : (
+          <></>
+        )}
       </>
     )
   }

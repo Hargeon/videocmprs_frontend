@@ -14,6 +14,7 @@ import {
   Container,
   Grid,
 } from "@material-ui/core";
+import Settings from "../../pages/Settings";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +38,10 @@ function Routes() {
 
       <PrivateRoute path="/new_request">
         <RequestForm />
+      </PrivateRoute>
+
+      <PrivateRoute path="/settings">
+        <Settings />
       </PrivateRoute>
 
       <GuestRoute path="/login">
